@@ -190,6 +190,7 @@ class TelegramChat {
         console.log('get lastMessId error: ' + err)
       })
     
+    responseTimer = setInterval(() => this.checkResponse(), 3000)
     isChatOpen = true
     localStorage.setItem('wasChatOpen', 'yes')
     this.deleteItem()
@@ -242,7 +243,6 @@ class TelegramChat {
       alert('Введите текст')
     }
     this.deleteItem()
-    responseTimer = setInterval(() => this.checkResponse(), 3000)
     chatMainInput.value = ''
   }
   checkResponse() {
