@@ -259,8 +259,8 @@ class TelegramChat {
     fetch(`https://api.telegram.org/bot${token}/getupdates`)
       .then(response => response.json())
       .then(res => {
-        let resLastMess = res.result[res.result.length - 1].message
-        if(resLastMess.reply_to_message !== undefined) {
+        let resLastMess = res.result[res.result.length - 1].message ?? null
+        if(resLastMess.reply_to_message) {
           checkReply = resLastMess.reply_to_message.text.includes(idStart)
         } else {
           checkReply = false
