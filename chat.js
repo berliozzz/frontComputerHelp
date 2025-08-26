@@ -236,6 +236,14 @@ class TelegramChat {
       chatBody.scrollTop = 100000
 
       fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=User${idStart}: ${val}`)
+        .then(response => response.json())
+        .then(res => {
+          
+        })
+        .catch(err => {
+          console.log('sendMessage error: ' + err.message)
+        })
+
       soundPush('assets/sound/send-message.mp3')
       localStorage.setItem('historyMessages', chatBody.innerHTML)
       setTimeout(() => chatMainInput.value = ''.trim(), 0)
@@ -260,6 +268,7 @@ class TelegramChat {
 
         newMessId = resLastMess.message_id
 
+        lastMessId = lastMessId ?? 0 // если lastMessId == undefined, присваиваем ему 0
         if (newMessId > lastMessId && checkReply) {
           let Text = res.result[res.result.length - 1].message.text
           let tplItemManager = 
